@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Dice Simulator</title>
+</head>
+<body class="bg-dark text-light">
+    <div class="container my-5">
+        <div class="row">
+            <div class="col text-center">
+                <h1>Dice Simulator</h1>
+                <p>Enter the number of dice and sides, then roll the dice!</p>
+            </div>
+        </div>
+
+        <div class="row my-3">
+            <div class="col-md-6">
+                <label for="numDice" class="form-label">Number of Dice</label>
+                <input type="number" class="form-control" id="numDice" min="1">
+            </div>
+            <div class="col-md-6">
+                <label for="numSides" class="form-label">Number of Sides</label>
+                <input type="number" class="form-control" id="numSides" min="2">
+            </div>
+        </div>
+
+        <div class="row my-3">
+            <div class="col text-center">
+                <button id="rollDice" class="btn btn-primary">Roll Dice</button>
+            </div>
+        </div>
+
+        <div class="row my-3">
+            <div class="col">
+                <label class="form-label">Results</label>
+                <ul id="resultsList" class="list-group"></ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let numDice = document.querySelector("#numDice");
+        let numSides = document.querySelector("#numSides");
+        let rollDiceButton = document.querySelector("#rollDice");
+        let resultsList = document.querySelector("#resultsList");
+
+        rollDiceButton.addEventListener('click', function() {
+            let diceCount = parseInt(numDice.value, 10);
+            let sidesCount = parseInt(numSides.value, 10);
+            resultsList.innerHTML = '';
+
+            if (!isNaN(diceCount) && !isNaN(sidesCount)) {
+                for (let i = 0; i < diceCount; i++) {
+                    let roll = Math.floor(Math.random() * sidesCount) + 1;
+                    let listItem = document.createElement("li");
+                    listItem.textContent = `Dice ${i + 1}: ${roll}`;
+                    listItem.classList.add("list-group-item", "bg-dark", "text-light");
+                    resultsList.appendChild(listItem);
+                }
+            } else {
+                alert("Please enter valid numbers for both fields and try again!!");
+            }
+        });
+    </script>
+</body>
+</html>
